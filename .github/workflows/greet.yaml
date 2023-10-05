@@ -12,8 +12,8 @@ jobs:
       - uses: actions/first-contribution@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "Hi there, ${{ github.event.issue.user.login }}, congratulations on your first contribution to the ${GITHUB_REPOSITORY} repository! We appreciate your help."
-          pr-message: "Hi there, ${{ github.event.pull_request.user.login }}, congratulations on your first pull request to the ${GITHUB_REPOSITORY} repository! We appreciate your contribution."
+          issue-message: "Heyo Congrats , ${{ github.event.issue.user.login }}, congratulations on your first contribution to the ${GITHUB_REPOSITORY} repository! We appreciate your help."
+          pr-message: "Heyo Congratulations, ${{ github.event.pull_request.user.login }}, congratulations on your first pull request to the ${GITHUB_REPOSITORY} repository! We appreciate your contribution."
 
       - name: Fetch and display a random welcome meme
         if: steps.check-contributor.outputs.is_first_time_contributor == 'true'

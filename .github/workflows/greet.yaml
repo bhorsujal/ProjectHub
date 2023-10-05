@@ -1,0 +1,31 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/first-contribution@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "Hi there, ${{ github.event.issue.user.login }}, congratulations on your first contribution to the ${GITHUB_REPOSITORY} repository! We appreciate your help."
+          pr-message: "Hi there, ${{ github.event.pull_request.user.login }}, congratulations on your first pull request to the ${GITHUB_REPOSITORY} repository! We appreciate your contribution."
+
+      - name: Fetch and display a random welcome meme
+        if: steps.check-contributor.outputs.is_first_time_contributor == 'true'
+        run: |
+          welcome_memes=(
+            "http://www.quickmeme.com/img/f4/f422be1f47748535219a86dceaaafe5196124aba353ab75b1621c4862302d303.jpg"
+            "https://www.sodapdf.com/blog/wp-content/uploads/2020/06/tell-me-more-about-artificial-intelligence-meme-1024x1024.jpg"
+            "https://sayingimages.com/wp-content/uploads/your-welcome-by-the-way-meme.jpg"
+          )
+          random_index=$(((${{ github.run_id }} % ${#welcome_memes[@]})))
+
+          random_meme_url=${welcome_memes[$random_index]}
+          
+          echo "![Welcome Meme]($random_meme_url)"
+
